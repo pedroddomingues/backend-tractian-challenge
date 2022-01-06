@@ -1,3 +1,6 @@
 import app from "./app"
 
-app.listen(3333, () => 'server running on port 3333')
+const port = parseInt(process.env.PORT) || 3000;
+const secret = process.env.SECRET;
+
+app.listen(port, () => console.log(`Server running on port ${port}!!`))

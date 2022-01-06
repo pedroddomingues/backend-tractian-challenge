@@ -1,16 +1,22 @@
-import express from 'express'
+import express from "express";
+import { Request, Response } from "express";
+import dotenv from "dotenv";
 
-import { Request, Response } from 'express';
-import { userRouter } from './routes';
+import { userRouter } from "./routes";
+import { connect as database_conect } from "./database";
 
 const app = express();
 
-app.use(express.json())
+dotenv.config();
 
-app.get('/', (req: Request, res: Response) => {
-  res.json({ message: 'hello world with Typescript' })
-})
+database_conect();
 
-app.use('/users', userRouter);
+app.use(express.json());
+
+app.get("/", (req: Request, res: Response) => {
+	res.json({ message: "hello world with Typescript" });
+});
+
+app.use("/users", userRouter);
 
 export default app;
