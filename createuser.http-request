@@ -1,0 +1,11 @@
+{
+  "body": {
+    "content": "ewoibmFtZSI6ICJQZWRybyIKfQ==",
+    "file": false,
+    "fileSize": false
+  },
+  "headers": {},
+  "method": "POST",
+  "title": "Create User ",
+  "url": "https://4000-jade-wildcat-hu0el20x.ws-us27.gitpod.io/users"
+}

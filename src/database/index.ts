@@ -1,3 +1,3 @@
-import { connect } from "./connect";
+import { mongo_connect } from "./mongodb/connect";
 
-export { connect };
+export { mongo_connect };

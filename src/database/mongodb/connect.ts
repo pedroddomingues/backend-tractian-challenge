@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export async function connect() {
+export async function mongo_connect() {
 	const uri = process.env.MONGO_URI;
 	const user = process.env.MONGO_USER;
 	const password = process.env.MONGO_PASSWORD;
@@ -11,6 +11,6 @@ export async function connect() {
 		);
 		console.log("Connected to database");
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 	}
 }
