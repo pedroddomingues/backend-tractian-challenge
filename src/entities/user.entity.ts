@@ -6,6 +6,12 @@ export interface create_user_dto {
 	password: string;
 }
 
+export interface update_user_dto {
+	name?: string;
+	email?: string;
+	password?: string;
+}
+
 export default class User {
 	public readonly _id: string;
 	public name: string;

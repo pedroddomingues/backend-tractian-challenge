@@ -2,9 +2,9 @@ import express from "express";
 import { Request, Response } from "express";
 import dotenv from "dotenv";
 
-import { userRouter } from "./routes";
+import { user_router } from "./routes";
 import { mongo_connect } from "./database";
-import { nextTick } from "process";
+import { log_errors, db_errors } from "./errors";
 
 const app = express();
 
@@ -18,13 +18,9 @@ app.get("/", (req: Request, res: Response) => {
 	res.json({ message: "hello world with Typescript" });
 });
 
-app.use(
-	"/users",
-	(req: Request, res: Response, next) => {
-		console.log(req);
-		next();
-	},
-	userRouter
-);
+app.use("/users", user_router);
+
+app.use(log_errors);
+app.use(db_errors);
 
 export default app;
