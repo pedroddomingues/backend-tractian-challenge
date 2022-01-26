@@ -10,4 +10,4 @@ const test_service = new user_service_class(users_repository);
 
 const user_controller = new user_controller_class(user_service);
 
-export { user_service, user_controller };
+export { users_repository, user_service, user_controller };

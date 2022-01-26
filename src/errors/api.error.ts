@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-export default function db_errors(
+export default function api_errors(
 	err: Error,
 	req: Request,
 	res: Response,

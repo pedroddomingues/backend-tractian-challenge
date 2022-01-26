@@ -35,9 +35,13 @@ export class user_service_class implements Iuser_service {
 			if (!user) {
 				return api_error.badRequest("User not found");
 			}
+			user.password = undefined;
 			return user;
 		}
 		const users = await this.users_repository.get_all();
+		users.forEach(user => {
+			user.password = undefined;
+		});
 		return users;
 	}
 

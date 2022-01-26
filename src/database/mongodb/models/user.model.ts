@@ -34,33 +34,21 @@ const user_schema = new mongoose.Schema({
 
 user_schema.index({ email: 1 });
 
-const hash_password: mongoose.PreSaveMiddlewareFunction<user_document> = async function (this, next) {
-	// only hash the password if it has been modified (or is new)
-	if (!this.isModified("password")) return next();
+const hash_password: mongoose.PreSaveMiddlewareFunction<user_document> =
+	async function (this, next) {
+		if (!this.isModified("password")) return next();
+		const salt = await bcrypt.genSalt(10);
+		const hash = await bcrypt.hashSync(this.password, salt);
+		this.password = hash;
+		return next();
+	};
 
-	// Random additional data
-	const salt = await bcrypt.genSalt(10);
+user_schema.pre("save", hash_password);
 
-	const hash = await bcrypt.hashSync(this.password, salt);
-
-	// Replace the password with the hash
-	this.password = hash;
-
-	return next();
-  }
-// When the user registers
-user_schema.pre(
-  "save",
-  hash_password
-);
-
-// Compare a candidate password with the user's password
-user_schema.methods.compare_password = async function (
-  candidate_password: string
+user_schema.methods.compare_password = async function (candidate_password: string
 ): Promise<boolean> {
-  const user = this as user_document;
-
-  return bcrypt.compare(candidate_password, user.password).catch(() => false);
+	const user = this as user_document;
+	return bcrypt.compare(candidate_password, user.password).catch(() => false);
 };
 
 const user_model = mongoose.model<user_document>("user", user_schema);

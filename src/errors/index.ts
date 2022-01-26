@@ -1,5 +1,5 @@
 import log_errors from "./log.error";
-import db_errors from "./db.error";
+import api_errors from "./api.error";
 
 export default class api_error {
 	constructor(public code: number, public message: String) {}
@@ -13,4 +13,4 @@ export default class api_error {
 	}
 }
 
-export { log_errors, db_errors };
+export { log_errors, api_errors };

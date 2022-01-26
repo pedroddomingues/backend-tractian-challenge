@@ -1,4 +1,4 @@
-import { uuid } from "uuidv4";
+import bcrypt from 'bcrypt';
 
 export interface create_user_dto {
 	name: string;
@@ -23,5 +23,9 @@ export default class User {
 		if (_id) {
 			this._id = _id;
 		}
+	}
+
+	public compare_password(candidate_password: string): Promise<boolean> {
+		return bcrypt.compare(candidate_password, this.password);
 	}
 }
