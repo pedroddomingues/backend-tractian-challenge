@@ -2,8 +2,8 @@ import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import passport from "passport";
 
-import { mongo_connect } from "./database";
 import "./security/authentication/local";
+import { mongo_connect } from "./database";
 import { log_errors, api_errors } from "./errors";
 import { authentication_router, user_router } from "./routes";
 
@@ -23,6 +23,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/auth", authentication_router);
 
+app.use(passport.authenticate("jwt", { session: false }));
 app.use("/users", user_router);
 
 app.use(log_errors);
