@@ -12,19 +12,12 @@ const opts: StrategyOptions = {
 };
 
 passport.use(
-	new Strategy(opts, function (jwt_payload, done) {
-		console.log(jwt_payload);
-		// const user = users_repository.get_by_id(jwt_payload.sub);
-		// User.findOne({id: jwt_payload.sub}, function(err, user) {
-		//     if (err) {
-		//         return done(err, false);
-		//     }
-		//     if (user) {
-		//         return done(null, user);
-		//     } else {
-		//         return done(null, false);
-		//         // or you could create a new account
-		//     }
-		// });
+	new Strategy(opts, async function (jwt_payload, done) {
+		const user = await users_repository.get_by_id(jwt_payload.user._id);
+		if (!user) {
+			return done(null, false, { message: "New login is necessary" });
+		}
+		user.password = undefined;
+		return done(null, user);
 	})
 );
