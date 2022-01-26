@@ -2,14 +2,15 @@ import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import passport from "passport";
 
+dotenv.config();
+
 import "./security/authentication/local";
+import "./security/authentication/jwt";
 import { mongo_connect } from "./database";
 import { log_errors, api_errors } from "./errors";
 import { authentication_router, user_router } from "./routes";
 
 const app = express();
-
-dotenv.config();
 
 mongo_connect();
 
