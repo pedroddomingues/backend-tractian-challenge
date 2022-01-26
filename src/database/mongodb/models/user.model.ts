@@ -1,10 +1,13 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+
 import { create_user_dto } from "../../../entities/user.entity";
+import Company from "../../../entities/company.entity";
 
 export interface user_document extends create_user_dto, mongoose.Document {
-	createdAt: { type: Date };
-	updatedAt: { type: Date };
+	company: Company;
+	createdAt: Date;
+	updatedAt: Date;
 	compare_password(candidate_password: string): Promise<boolean>;
 }
 
@@ -20,6 +23,11 @@ const user_schema = new mongoose.Schema({
 	},
 	password: {
 		type: String,
+		required: true,
+	},
+	company: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "company",
 		required: true,
 	},
 	createdAt: {
@@ -45,7 +53,8 @@ const hash_password: mongoose.PreSaveMiddlewareFunction<user_document> =
 
 user_schema.pre("save", hash_password);
 
-user_schema.methods.compare_password = async function (candidate_password: string
+user_schema.methods.compare_password = async function (
+	candidate_password: string
 ): Promise<boolean> {
 	const user = this as user_document;
 	return bcrypt.compare(candidate_password, user.password).catch(() => false);
