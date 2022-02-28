@@ -19,10 +19,7 @@ export default class Company {
 	public units: Unit[];
 	public users: User[];
 
-	constructor({
-		name,
-		description,
-	}: create_company_dto, _id?: string) {
+	constructor({ name, description }: create_company_dto, _id?: string) {
 		Object.assign(this, {
 			name,
 			description,
@@ -48,4 +45,3 @@ export default class Company {
 		this.users = this.users.filter((u) => u._id !== user._id);
 	}
 }
-

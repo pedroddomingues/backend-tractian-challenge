@@ -35,14 +35,17 @@ export default class Asset {
 	public status: Estatus;
 	public health_level: number;
 
-	constructor({
-		image_url,
-		name,
-		description,
-		model,
-		owner,
-		status,
-	}: create_asset_dto, _id?: string) {
+	constructor(
+		{
+			image_url,
+			name,
+			description,
+			model,
+			owner,
+			status,
+		}: create_asset_dto,
+		_id?: string
+	) {
 		Object.assign(this, {
 			image_url,
 			name,
