@@ -11,4 +11,3 @@ export interface Iassets_repository {
 	change_owner(asset: Asset, unit: Unit): Promise<Asset>;
 	change_status(asset: Asset, status: Estatus): Promise<Asset>;
 }
-
